@@ -1,0 +1,34 @@
+.linkResult{
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.linkResult p{
+    border: 2px solid yellow;
+    padding: 5px 20px;
+    color: white;
+    margin-right:  10px;
+}
+
+
+.linkResult button{
+    border: none;
+    height: 40px;
+    padding: 0 20px;
+    background-color: yellow;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.load{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
