@@ -41,3 +41,19 @@
     color: white;
     cursor: pointer;
 }
+
+@media screen and (max-width: 700px) {
+    .inputsection{
+        width: 90%;
+    }
+    .inputsection h1{
+        font-size: 30px;
+    }
+
+    .inputsection .input{
+        width: 100%;
+    }
+    
+}
+
+

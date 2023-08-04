@@ -7,7 +7,7 @@ import axios from "axios";
 import "./linkresult.css";
 
 const LinkResult = ({ value }) => {
-  const [shortLink, setShortlink] = useState("");
+  const [shortLink, setShortlink] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -15,7 +15,11 @@ const LinkResult = ({ value }) => {
     try {
       setLoading(true);
       const res = await axios(`https://api.shrtco.de/v2/shorten?url=${value}`);
-      setShortlink(res.data.result.full_short_link);
+      // setShortlink(res.data.result.full_short_link);
+
+      setShortlink((oldLink) => {
+        return [...oldLink, res.data.result.full_short_link];
+      });
 
       setLoading(false);
     } catch (error) {
@@ -31,21 +35,23 @@ const LinkResult = ({ value }) => {
   }, [value]);
 
   const notify = (link) => {
-    toast.success(`${link} is copied`, {position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark"});
+    toast.success(`${link} is copied`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   return (
     <>
       {loading && <p className="load">Loading.....</p>}
       {error && <p className="load">Something went Wrong ......</p>}
-      {shortLink && (
+      {/* {shortLink && (
         <div className="linkResult">
           <p>{shortLink}</p>
 
@@ -54,20 +60,36 @@ const LinkResult = ({ value }) => {
               Copy Link
             </button>
           </CopyToClipboard>
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
         </div>
-      )}
+      )} */}
+
+      {shortLink &&
+        shortLink.map((link, index) => {
+          return (
+            <div className="linkResult">
+              <p>{index}. {link}</p>
+
+              <CopyToClipboard text={link}>
+                <button type="button" onClick={() => notify(link)}>
+                  Copy Link
+                </button>
+              </CopyToClipboard>
+            </div>
+          );
+        })}
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };
