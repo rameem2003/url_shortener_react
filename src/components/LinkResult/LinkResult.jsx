@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaCopy, FaTrashCan } from "react-icons/fa6";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +19,11 @@ const LinkResult = ({ value }) => {
       // setShortlink(res.data.result.full_short_link);
 
       setShortlink((oldLink) => {
-        return [...oldLink, res.data.result.full_short_link];
+        // return [...oldLink, res.data.result.full_short_link];
+        return [
+          ...oldLink,
+          { main_link: value, shorted_link: res.data.result.full_short_link },
+        ];
       });
 
       setLoading(false);
@@ -26,6 +31,23 @@ const LinkResult = ({ value }) => {
       setError(error);
       setLoading(false);
     }
+  };
+
+  const deleteLink = (index) => {
+    toast.success(`Delete`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+    setShortlink((oldLink) => {
+      // const filteredLinks = shortLink.filter((link) => )
+    });
   };
 
   useEffect(() => {
@@ -63,17 +85,44 @@ const LinkResult = ({ value }) => {
         </div>
       )} */}
 
-      {shortLink &&
+      {/* {shortLink &&
         shortLink.map((link, index) => {
           return (
             <div className="linkResult">
-              <p>{index}. {link}</p>
+              <p>
+                {index}. {link.shorted_link}
+              </p>
 
               <CopyToClipboard text={link}>
                 <button type="button" onClick={() => notify(link)}>
                   Copy Link
                 </button>
               </CopyToClipboard>
+            </div>
+          );
+        })} */}
+
+      {shortLink &&
+        shortLink.map((link, index) => {
+          return (
+            <div className="linkCard">
+              <div className="index">
+                <h1>{index + 1}</h1>
+              </div>
+              <div className="links">
+                {/* <p>{link.main_link}</p> */}
+                <h2>{link.shorted_link}</h2>
+              </div>
+
+              <CopyToClipboard text={link.shorted_link}>
+                <button onClick={() => notify(link.shorted_link)}>
+                  <FaCopy />
+                </button>
+              </CopyToClipboard>
+
+              <button onClick={() => deleteLink(index)}>
+                <FaTrashCan />
+              </button>
             </div>
           );
         })}

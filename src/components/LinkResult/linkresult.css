@@ -1,34 +1,54 @@
-.linkResult{
-    margin: 0 auto;
-    width: 50%;
-    margin-top: 50px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.linkCard {
+  margin: 0 auto;
+  height: 30px;
+  width: 30%;
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
 }
 
-.linkResult p{
-    border: 2px solid yellow;
-    padding: 5px 20px;
-    color: white;
-    margin-right:  10px;
+.linkCard .index {
+  width: 10%;
 }
 
-
-.linkResult button{
-    border: none;
-    height: 40px;
-    padding: 0 20px;
-    background-color: yellow;
-    font-weight: bold;
-    font-size: 15px;
-    margin-left: 10px;
-    cursor: pointer;
+.linkCard .links {
+  width: 80%;
+  margin-left: 10px;
 }
 
-.load{
-    text-align: center;
-    color: white;
-    font-size: 20px;
+.linkCard .links h3 {
+  overflow: hidden;
+}
+
+.linkCard .links h2,
+.linkCard .links h3 {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.linkCard button {
+  font-size: 20px;
+  color: #462169;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.load {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .linkCard {
+    width: 90%;
+  }
 }
