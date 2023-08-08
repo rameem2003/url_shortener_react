@@ -16,16 +16,27 @@
   width: 10%;
 }
 
+.linkCard .index p {
+  font-weight: bold;
+}
+
 .linkCard .links {
   width: 80%;
   margin-left: 10px;
 }
 
-.linkCard .links h3 {
+.linkCard .links p {
   overflow: hidden;
+  text-align: left;
+  margin: 0;
 }
 
-.linkCard .links h2,
+.linkCard .links p:last-child {
+  color: red;
+  font-weight: bold;
+  font-size: 22px;
+}
+
 .linkCard .links h3 {
   padding: 0;
   margin: 0;

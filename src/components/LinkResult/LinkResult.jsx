@@ -16,10 +16,8 @@ const LinkResult = ({ value }) => {
     try {
       setLoading(true);
       const res = await axios(`https://api.shrtco.de/v2/shorten?url=${value}`);
-      // setShortlink(res.data.result.full_short_link);
 
       setShortlink((oldLink) => {
-        // return [...oldLink, res.data.result.full_short_link];
         return [
           ...oldLink,
           { main_link: value, shorted_link: res.data.result.full_short_link },
@@ -34,7 +32,7 @@ const LinkResult = ({ value }) => {
   };
 
   const deleteLink = (index) => {
-    toast.success(`Delete`, {
+    toast.error(`Delete`, {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -46,7 +44,8 @@ const LinkResult = ({ value }) => {
     });
 
     setShortlink((oldLink) => {
-      // const filteredLinks = shortLink.filter((link) => )
+      const filteredLinks = shortLink.filter((link, i) => i !== index);
+      return filteredLinks;
     });
   };
 
@@ -73,45 +72,17 @@ const LinkResult = ({ value }) => {
     <>
       {loading && <p className="load">Loading.....</p>}
       {error && <p className="load">Something went Wrong ......</p>}
-      {/* {shortLink && (
-        <div className="linkResult">
-          <p>{shortLink}</p>
-
-          <CopyToClipboard text={shortLink}>
-            <button type="button" onClick={() => notify(shortLink)}>
-              Copy Link
-            </button>
-          </CopyToClipboard>
-        </div>
-      )} */}
-
-      {/* {shortLink &&
-        shortLink.map((link, index) => {
-          return (
-            <div className="linkResult">
-              <p>
-                {index}. {link.shorted_link}
-              </p>
-
-              <CopyToClipboard text={link}>
-                <button type="button" onClick={() => notify(link)}>
-                  Copy Link
-                </button>
-              </CopyToClipboard>
-            </div>
-          );
-        })} */}
 
       {shortLink &&
         shortLink.map((link, index) => {
           return (
-            <div className="linkCard">
+            <div className="linkCard" key={index}>
               <div className="index">
-                <h1>{index + 1}</h1>
+                <p>{index + 1}</p>
               </div>
               <div className="links">
-                {/* <p>{link.main_link}</p> */}
-                <h2>{link.shorted_link}</h2>
+                <p>{link.main_link.slice(0, 30) + "..."}</p>
+                <p>{link.shorted_link}</p>
               </div>
 
               <CopyToClipboard text={link.shorted_link}>

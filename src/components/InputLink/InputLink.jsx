@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./inputlink.css";
 
 const InputLink = ({ setValue }) => {
   const [getValue, setGetvalue] = useState("");
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setValue(getValue);
     setGetvalue("");
   };
@@ -14,11 +15,12 @@ const InputLink = ({ setValue }) => {
       <h1>
         URL{" "}
         <span>
-          Shortener <sup style={{ fontSize: "22px" }}>Beta</sup>
+          Shortener{" "}
+          <sup style={{ fontSize: "22px", display: "none" }}>Beta</sup>
         </span>
       </h1>
 
-      <div className="input">
+      <form className="input" onSubmit={handleClick}>
         <input
           type="text"
           name=""
@@ -29,10 +31,8 @@ const InputLink = ({ setValue }) => {
             setGetvalue(e.target.value);
           }}
         />
-        <button type="button" onClick={handleClick}>
-          Short
-        </button>
-      </div>
+        <button type="submit">Short</button>
+      </form>
     </div>
   );
 };
